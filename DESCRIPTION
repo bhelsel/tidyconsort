@@ -1,0 +1,16 @@
+Package: tidyconsort
+Type: Package
+Title: An Interface to the DiagrammeR Package to Create Consort Diagrams
+Version: 0.1.0
+Authors@R: c(
+    person(c("Brian", "C."), "Helsel", email = "bhelsel@kumc.edu", role = c("aut", "cre"))
+    )
+Maintainer: The package maintainer <bhelsel@kumc.edu>
+Description: The goal of tidyconsort is to make creating consort diagrams easier with the DiagrammeR package.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.1
+Imports:
+  DiagrammeR,
+  stringr
