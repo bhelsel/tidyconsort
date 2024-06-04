@@ -32,7 +32,7 @@ create_graph() |>
 
 ```
 
-## Template
+## Example 1
 
 Here is a template to get started.
 
@@ -53,8 +53,32 @@ use_template_1(
 
 ```
 
-<img src="inst/extdata/consort.png" align="left" width="50%" height="50%"/>
+<img src="inst/extdata/consort.png" width="75%" height="75%"/>  
 
+## Example 2 
+
+You can also read in data with the parameters in a csv file
+
+```r
+
+nodes <- read.csv(system.file("extdata/nodes.csv", package = "tidyconsort"))
+edges <- read.csv(system.file("extdata/edges.csv", package = "tidyconsort"))
+
+positions <- unlist(lapply(1:nrow(nodes), function(x) c(nodes$posX[x], nodes$posY[x])))
+
+create_graph(width = 11, height = 10, ratio = "expand") |>
+  set_node_parameters(shape = "box", style = "rounded,filled", width = 2) |>
+  add_node(name = nodes$name, 
+           label = sprintf("%s \n (n = %s)", nodes$label, nodes$n), 
+           pos = positions, fillcolor = nodes$fillcolors, color = nodes$colors, 
+           width = nodes$width, height = nodes$height,
+           fontsize = 18) |>
+  add_edge(from = edges$from, to = edges$to)
+
+
+```
+
+<img src="inst/extdata/flowDiagram.png" width="75%" height="75%"/>
 
 
 

@@ -1,0 +1,15 @@
+from,to
+recruitment,consented
+recruitment,screenedout
+consented,nostart
+screenedout,exclusion1
+screenedout,exclusion2
+screenedout,exclusion3
+screenedout,exclusion4
+consented,phase1
+phase1,phase2
+phase2,phase3
+phase1,intervention1
+intervention1,phase2
+phase2,intervention2
+intervention2,phase3

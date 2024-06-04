@@ -1,0 +1,14 @@
+name,label,n,colors,fillcolors,posX,posY,width,height
+recruitment,Recruitment,131,black,white,4,8,2,1
+consented,Consented,106,black,#AFE1AF,4,6,2,1
+nostart,Did Not Start,7,black,white,4,4,2,1
+screenedout,Screened Out,25,black,#FFCCCB,8,8,4,1
+exclusion1,Age,2,white,white,7,7,1,1
+exclusion2,Medical,15,white,white,8,7,1,1
+exclusion3,Location,4,white,white,9,7,1,1
+exclusion4,Too Active,4,white,white,10.25,8,1,1
+phase1,Completed Baseline Testing,106,black,white,7,5.75,3,1.75
+phase2,Completed 6 Months,89,black,white,7,4,3,1.75
+phase3,Completed 12 Months,82,black,white,7,2.25,3,1.75
+intervention1,Active Intervention \n (0 to 6 months),0,black,white,10,5,3,1.75
+intervention2,No Contact Follow-Up \n (6 to 12 months),0,black,white,10,3,3,1.75
