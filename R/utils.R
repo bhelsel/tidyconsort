@@ -14,15 +14,17 @@ check_params <- function(name = NULL, params, stringWidth = 50){
   if("style" %in% names(params)) params$style <- sprintf("'%s'", params$style)
   if("label" %in% names(params)) {
     if(length(name) == length(params$label)){
-      params$label <- stringr::str_wrap(sprintf("'%s'", params$label), width = stringWidth)
+      newline <- grepl("\n", params$label)
+      params$label <- sprintf("'%s'", params$label)
+      params$label[!newline] <- stringr::str_wrap(params$label[!newline], width = stringWidth)
     } else{
       stop(sprintf("The length of 'names' is %s and the length of 'label' is %s", length(name), length(params$label)))
     }
   }
   if("pos" %in% names(params)) params$pos <- sapply(seq(1, length(params$pos), 2), function(i) sprintf("'%s, %s!'", params$pos[i], params$pos[i+1]))
-  if("color" %in% names(params)) params$color <- check_colors(params$color)
-  if("fillcolor" %in% names(params)) params$fillcolor <- check_colors(params$fillcolor)
-  if("fontcolor" %in% names(params)) params$fontcolor <- check_colors(params$fontcolor)
+  if("color" %in% names(params)) params$color <- unname(sapply(params$color, check_colors))
+  if("fillcolor" %in% names(params)) params$fillcolor <- unname(sapply(params$fillcolor, check_colors))
+  if("fontcolor" %in% names(params)) params$fontcolor <- unname(sapply(params$fontcolor, check_colors))
 
   maxElements <- max(unlist(lapply(params, length)))
   params <-
