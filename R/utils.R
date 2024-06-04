@@ -20,6 +20,9 @@ check_params <- function(name = NULL, params, stringWidth = 50){
     }
   }
   if("pos" %in% names(params)) params$pos <- sapply(seq(1, length(params$pos), 2), function(i) sprintf("'%s, %s!'", params$pos[i], params$pos[i+1]))
+  if("color" %in% names(params)) params$color <- check_colors(params$color)
+  if("fillcolor" %in% names(params)) params$fillcolor <- check_colors(params$fillcolor)
+  if("fontcolor" %in% names(params)) params$fontcolor <- check_colors(params$fontcolor)
 
   maxElements <- max(unlist(lapply(params, length)))
   params <-
@@ -33,3 +36,30 @@ check_params <- function(name = NULL, params, stringWidth = 50){
 
   return(params)
 }
+
+
+#' @title check_colors
+#' @description Checks the color formatting within the node or edge parameters
+#' @param color A color name or 6-digit hex code, Default: NULL
+#' @return A color name or 6-digit hex code formatted for the node or edge parameters.
+#' @details Checks the color formatting within the node or edge parameters and returns
+#'  a color name or 6-digit hex code with black as the default if the color does not
+#'  match the formatting requirements.
+#' @rdname check_colors
+#' @importFrom stringr str_wrap regex
+#' @importFrom grDevices colors
+#' @noRd
+#' @keywords internal
+
+check_colors <- function(color){
+  if(color %in% grDevices::colors()){
+    color <- sprintf("'%s'", color)
+  } else if(grepl(stringr::regex("^#([A-Fa-f0-9]{6})$"), color)) {
+    color <- sprintf("'%s'", color)
+  } else {
+    color <- "'#000000'"
+  }
+  return(color)
+}
+
+
