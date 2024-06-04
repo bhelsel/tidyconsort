@@ -8,6 +8,9 @@ create_graph(
   splines = "ortho",
   layout = "neato",
   outputorder = "edgesfirst",
+  width = 8,
+  height = 8,
+  ratio = "auto",
   verbose = FALSE
 )
 }
@@ -17,6 +20,12 @@ create_graph(
 \item{layout}{Choose the layout engine to use (\url{https://graphviz.org/docs/attrs/layout/}), Default: 'neato'}
 
 \item{outputorder}{Specify the order in which nodes and edges are drawn (\url{https://graphviz.org/docs/attr-types/outputMode/}), Default: 'edgesfirst'}
+
+\item{width}{Minimum width of the diagram, Default: 8}
+
+\item{height}{Minimum height of the diagram, Default: 8}
+
+\item{ratio}{Sets the aspect ratio of the height and width of the drawing (\url{https://graphviz.org/docs/attrs/ratio/}), Default: 'auto'}
 
 \item{verbose}{Prints out the dot diagram in html format, Default: FALSE}
 }
