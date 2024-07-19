@@ -13,5 +13,11 @@ LazyData: true
 RoxygenNote: 7.3.1
 Imports:
   DiagrammeR,
+  DiagrammeRsvg,
+  grDevices,
+  htmltools,
+  htmlwidgets,
+  magrittr,
+  rsvg,
   stringr,
-  grDevices
+  xml2

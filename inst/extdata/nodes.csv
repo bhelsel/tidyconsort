@@ -1,14 +1,14 @@
-name,label,n,colors,fillcolors,posX,posY,width,height
-recruitment,Recruitment,131,black,white,4,8,2,1
-consented,Consented,106,black,#AFE1AF,4,6,2,1
-nostart,Did Not Start,7,black,white,4,4,2,1
-screenedout,Screened Out,25,black,#FFCCCB,8,8,4,1
-exclusion1,Age,2,white,white,7,7,1,1
-exclusion2,Medical,15,white,white,8,7,1,1
-exclusion3,Location,4,white,white,9,7,1,1
-exclusion4,Too Active,4,white,white,10.25,8,1,1
-phase1,Completed Baseline Testing,106,black,white,7,5.75,3,1.75
-phase2,Completed 6 Months,89,black,white,7,4,3,1.75
-phase3,Completed 12 Months,82,black,white,7,2.25,3,1.75
-intervention1,Active Intervention \n (0 to 6 months),0,black,white,10,5,3,1.75
-intervention2,No Contact Follow-Up \n (6 to 12 months),0,black,white,10,3,3,1.75
+type,name,n,g1_label,g2_label,g1_n,g2_n,label,colors,fillcolors,posX,posY,width,height
+recruitment,recruitment,131,,,,,Recruitment,black,white,4,8,2,1
+recruitment,consented,106,,,,,Consented,black,#AFE1AF,4,6,2,1
+recruitment,nostart,7,,,,,Did Not Start,black,white,4,4,2,1
+recruitment,screenedout,25,,,,,Screened Out,black,#FFCCCB,8,8,4,1
+recruitment,exclusion1,2,,,,,Age,white,white,7,7,1,1
+recruitment,exclusion2,15,,,,,Medical,white,white,8,7,1,1
+recruitment,exclusion3,4,,,,,Location,white,white,9,7,1,1
+recruitment,exclusion4,4,,,,,Too Active,white,white,10.25,8,1,1
+intervention,phase1,,RGV,EUC,63,43,Completed Baseline Testing,black,white,7,5.75,3,1.75
+intervention,phase2,,RGV,EUC,53,36,Completed 6 Months,black,white,7,4,3,1.75
+intervention,phase3,,RGV,EUC,49,33,Completed 12 Months,black,white,7,2.25,3,1.75
+intervention,intervention1,,RGV,EUC,53,36,Active Intervention \n (0 to 6 months),black,white,10,5,3,1.75
+intervention,intervention2,,RGV,EUC,49,33,No Contact Follow-Up \n (6 to 12 months),black,white,10,3,3,1.75
