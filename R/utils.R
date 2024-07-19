@@ -14,9 +14,19 @@ check_params <- function(name = NULL, params, stringWidth = 50){
   if("style" %in% names(params)) params$style <- sprintf("'%s'", params$style)
   if("label" %in% names(params)) {
     if(length(name) == length(params$label)){
-      newline <- grepl("\n", params$label)
-      params$label <- sprintf("'%s'", params$label)
-      params$label[!newline] <- stringr::str_wrap(params$label[!newline], width = stringWidth)
+      if(any(grepl("<|>", params$label))){
+        params$label <- sprintf("<%s>", params$label)
+        if(any(grepl("<br>", params$label))){
+          params$label <- gsub("<br>", "<br/>", params$label)
+        }
+        if(any(grepl("\n", params$label))){
+          params$label <- gsub("\n", "<br/>", params$label)
+        }
+      } else{
+        newline <- grepl("\n", params$label)
+        params$label <- sprintf("'%s'", params$label)
+        params$label[!newline] <- stringr::str_wrap(params$label[!newline], width = stringWidth)
+      }
     } else{
       stop(sprintf("The length of 'names' is %s and the length of 'label' is %s", length(name), length(params$label)))
     }
@@ -65,3 +75,46 @@ check_colors <- function(color){
 }
 
 
+#' @title rotate_labels
+#' @description Rotates the labels of the specified nodes from the grViz and htmlwidget object
+#' @param graph A dot diagram created from `DiagrammeR::grViz`
+#' @param nodes An integer or numeric vector containing the node number(s) indicating which labels to rotate
+#' @param angle The angle for which the labels should be rotated, Default: -90
+#' @param moveX A numeric value to shift the label along the x-axis
+#' @param moveY A numeric value to shift the label along the y-axis
+#' @return A graph object of class grViz and htmlwidget with rotated labels
+#' @details Rotates the labels of the specified nodes from the grViz and htmlwidget object
+#' @seealso
+#'  \code{\link[htmltools]{HTML}}
+#'  \code{\link[htmlwidgets]{prependContent}}, \code{\link[htmlwidgets]{onStaticRenderComplete}}
+#' @rdname rotate_labels
+#' @export
+#' @importFrom htmltools HTML
+#' @importFrom htmlwidgets appendContent onStaticRenderComplete
+
+rotate_labels <- function(graph, nodes, angle = -90, moveX = 0, moveY = 0){
+
+  first_line <- paste0("[", paste0(sprintf('["node%s", ["%s", "%s"]]', nodes, moveX, moveY), collapse = ", "), "]")
+
+  javascript <-
+    sprintf('
+         const nodeMap = new Map(%s);
+         for (const [node, shift] of nodeMap) {
+           var theDiv = document.getElementById(node);
+           var theText = theDiv.querySelector("text");
+           var attrX = theText.getAttribute("x");
+           var attrY = theText.getAttribute("y");
+           theText.setAttribute("y",parseFloat(attrX)+parseFloat(shift[0]))
+           theText.setAttribute("x",(parseFloat(attrY)*-1)+parseFloat(shift[1]))
+           theText.setAttribute("style","transform: rotate(%sdeg);")
+           theText.setAttribute("dominant-baseline", "middle")
+         }
+      ', first_line, angle)
+
+  javascript <- htmltools::HTML(javascript)
+
+  graph <- htmlwidgets::appendContent(graph, htmlwidgets::onStaticRenderComplete(javascript))
+
+  return(graph)
+
+}
