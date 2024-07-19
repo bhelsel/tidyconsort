@@ -1,7 +1,7 @@
 Package: tidyconsort
 Type: Package
 Title: An Interface to the DiagrammeR Package to Create Consort Diagrams
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person(c("Brian", "C."), "Helsel", email = "bhelsel@kumc.edu", role = c("aut", "cre"))
     )
