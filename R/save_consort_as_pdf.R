@@ -2,6 +2,7 @@
 #' @description Saves the consort diagram built in tidyconsort to a pdf file
 #' @param graph A dot diagram created from `DiagrammeR::grViz`
 #' @param outdir Output directory to save the pdf file
+#' @param name Name of the file when writing it to outdir, Default: consort
 #' @param moveX A numeric value to shift the label along the x-axis
 #' @param moveY A numeric value to shift the label along the y-axis
 #' @return Saves the consort diagram as a pdf document
@@ -22,7 +23,7 @@
 #' @importFrom rsvg rsvg_pdf
 
 
-save_consort_as_pdf <- function(graph, outdir, moveX = 0, moveY = 0){
+save_consort_as_pdf <- function(graph, outdir, name = "consort", moveX = 0, moveY = 0){
 
   temp_path <- file.path(outdir, "consort_temp")
 
@@ -55,18 +56,20 @@ save_consort_as_pdf <- function(graph, outdir, moveX = 0, moveY = 0){
   if(len != length(moveX)) moveX <- rep(moveX, 3)
   if(len != length(moveY)) moveY <- rep(moveY, 3)
 
-  for (i in 1:len) {
-    matsp <- stringr::str_split_fixed(jsnode[[i]][1], ",", 3)
-    xml_text_node <- xml2::xml_find_first(svg, paste0("//d1:g[@id=\"", matsp[, 1], "\"]//d1:text"), xml2::xml_ns(svg))
-    attr_x <- xml2::xml_attr(xml_text_node, "x")
-    attr_y <- xml2::xml_attr(xml_text_node, "y")
-    xml2::xml_attr(xml_text_node, "x") <- (as.numeric(attr_y) * -1) + as.numeric(moveX[i])
-    xml2::xml_attr(xml_text_node, "y") <- as.numeric(attr_x) + 2 + as.numeric(moveY[i])
-    xml2::xml_attr(xml_text_node, "transform") <- "rotate(-90)"
+  if(len != 0){
+    for (i in 1:len) {
+      matsp <- stringr::str_split_fixed(jsnode[[i]][1], ",", 3)
+      xml_text_node <- xml2::xml_find_first(svg, paste0("//d1:g[@id=\"", matsp[, 1], "\"]//d1:text"), xml2::xml_ns(svg))
+      attr_x <- xml2::xml_attr(xml_text_node, "x")
+      attr_y <- xml2::xml_attr(xml_text_node, "y")
+      xml2::xml_attr(xml_text_node, "x") <- (as.numeric(attr_y) * -1) + as.numeric(moveX[i])
+      xml2::xml_attr(xml_text_node, "y") <- as.numeric(attr_x) + 2 + as.numeric(moveY[i])
+      xml2::xml_attr(xml_text_node, "transform") <- "rotate(-90)"
+    }
   }
 
   xml2::write_xml(svg, file = tmpfilesvg)
-  rsvg::rsvg_pdf(tmpfilesvg, file.path(outdir, "consort.pdf"))
+  rsvg::rsvg_pdf(tmpfilesvg, file.path(outdir, sprintf("%s.pdf", name)))
   unlink(temp_path, recursive = TRUE)
 }
 
