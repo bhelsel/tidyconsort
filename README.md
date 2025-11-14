@@ -1,4 +1,3 @@
-
 # tidyconsort
 
 <!-- badges: start -->
@@ -10,7 +9,7 @@ The goal of tidyconsort is to make creating consort diagrams easier with the Dia
 
 You can install the development version of tidyconsort like so:
 
-``` r
+```r
 devtools::install_github("bhelsel/tidyconsort")
 ```
 
@@ -18,13 +17,13 @@ devtools::install_github("bhelsel/tidyconsort")
 
 This is a basic example of adding nodes and edges:
 
-``` r
+```r
 library(tidyconsort)
 
 create_graph() |>
   set_node_parameters(shape = "box", fontsize = 12,
                       fontname = "Arial", style = "rounded,filled",
-                      fillcolor = "White") |>
+                      fillcolor = "#FFFFFF") |>
   add_node(name = "n1", label = "First Node", pos = c(8, 8)) |>
   add_node(name = "n2", label = "Second Node", pos = c(4, 8)) |>
   set_edge_parameters(arrowhead = "normal", arrowtail = "normal") |>
@@ -36,7 +35,7 @@ create_graph() |>
 
 Here is a template to get started.
 
-``` r
+```r
 
 use_template_1(
   eligible = 0,
@@ -53,9 +52,9 @@ use_template_1(
 
 ```
 
-<img src="inst/extdata/consort.png" width="75%" height="75%"/>  
+<img src="inst/extdata/consort.png" width="75%" height="75%"/>
 
-## Example 2 
+## Example 2
 
 You can also read in data with the parameters in a csv file
 
@@ -68,9 +67,9 @@ positions <- unlist(lapply(1:nrow(nodes), function(x) c(nodes$posX[x], nodes$pos
 
 create_graph(width = 11, height = 10, ratio = "expand") |>
   set_node_parameters(shape = "box", style = "rounded,filled", width = 2) |>
-  add_node(name = nodes$name, 
-           label = sprintf("%s \n (n = %s)", nodes$label, nodes$n), 
-           pos = positions, fillcolor = nodes$fillcolors, color = nodes$colors, 
+  add_node(name = nodes$name,
+           label = sprintf("%s \n (n = %s)", nodes$label, nodes$n),
+           pos = positions, fillcolor = nodes$fillcolors, color = nodes$colors,
            width = nodes$width, height = nodes$height,
            fontsize = 18) |>
   add_edge(from = edges$from, to = edges$to)
@@ -79,9 +78,3 @@ create_graph(width = 11, height = 10, ratio = "expand") |>
 ```
 
 <img src="inst/extdata/flowDiagram.png" width="75%" height="75%"/>
-
-
-
-
-
-
